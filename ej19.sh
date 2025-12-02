@@ -5,8 +5,7 @@
 select opciones in Calculadora Ej13a_Numeros_1-100 Ej13b_Menu Ej13c_Existe_archivo Ej17_May_Min Salir
 do 
 	case $opciones in
-		"Calculadora")
-			echo "Ingrese un numero"
+		"Calculadora") echo "Ingrese un numero"
 			read valor1
 			echo "Ingrese un operador"
 			read operador

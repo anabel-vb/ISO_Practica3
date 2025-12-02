@@ -4,23 +4,23 @@
 # $2 = -a (agrega al final) o -b (agrega al comienzo)
 # $3 = cadena
 # !/bin/bash
-if [ &# -eq 3 ]; then
-	if [ -d $1 ]; then
-		if [ $2 = "-a" || $2 = "-b" ]; then	
-			posActual= pwd 
-			cd $1 
-			archivos = 'ls'
-			cantArchivos= $(#archivos[])
-			for i in {1..$cantArchivos}; do
-					if [ -f archivos[i] ]; then
-						if [ $2 = "-a"; then
-			      			mv archivos[i] "archivos[i]$3"
-						else
-							mv archivos[i] "$3archivos[i]"
-						fi
-					fi
-			done
-			cd $posActual
+if [ ! $# -eq 3 ]; then
+	exit 1
+fi
+if [ ! -d $1 ]; then
+	exit 2
+fi
+if [ "$2" != "-a" ] && [ "$2" != "-b" ]; then
+	exit 3
+fi
+
+for archivo in $(ls $1) ; do
+	if [ -f $archivo ]; then
+		if [ $2 = "-a"; then
+			mv $1/$archivo "$1/$archivo$3"
+			else
+			mv $1/$archivo "$1/$3$archivo"
 		fi
 	fi
-fi	
+done
+

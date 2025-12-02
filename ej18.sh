@@ -2,9 +2,15 @@
 # será pasado por parámetro). Cuando el usuario finalmente se loguee, el programa muestra el
 # mensaje 'USUARIO XXXX logueado en el sistema" y sale
 #!/bin/bash
-if [ $# -eq 1 ]; then
-	while [ who | grep -q $1 -eq 1 ]; do
-		sleep 10
-	done
-	echo "USUARIO $1 logueado en el sistema"
+if [ $# -ne 1 ]; then
+	exit 1
 fi
+# verificar que el usuario exista (iterar sobre el /etc/passwd)
+while [ true ]; do
+	if  who | grep -q "$1" ; then
+		break
+	fi
+	sleep 10
+done
+echo "USUARIO $1 logueado en el sistema"
+
